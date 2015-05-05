@@ -14,7 +14,18 @@ IMPLEMENT_DYNAMIC(ROOM, CDialogEx)
 
 ROOM::ROOM(CWnd* pParent /*=NULL*/)
 	: CDialogEx(ROOM::IDD, pParent)
+	, broad(_T(""))
+	, computer(_T(""))
+	, ID(_T(""))
+	, project(_T(""))
+	, seat(_T(""))
 {			//¿Ø¼þµÄ³õÊ¼»¯²»ÒªÐ´ÔÚÕâÀï£¬µ±Õâ¸ö¶ÔÏó±»´´Á¢Ê±£¬´°¿Ú»¹Ã»ÓÐ´´½¨£¬ºÎÌ¸¿Ø¼þ£¿
+	//±äÁ¿³õÊ¼»¯
+	RoomID = "";
+	NumberOfSeat = "";
+	NumberOfComputer = "";
+	NumberOfWhitebash = "";
+	NumberOfProject = "";
 }
 
 ROOM::~ROOM()
@@ -25,12 +36,18 @@ void ROOM::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, List);
+	DDX_Text(pDX, IDC_EDIT_broad, broad);
+	DDX_Text(pDX, IDC_EDIT_computer, computer);
+	DDX_Text(pDX, IDC_EDIT_ID, ID);
+	DDX_Text(pDX, IDC_EDIT_project, project);
+	DDX_Text(pDX, IDC_EDIT_seat, seat);
 }
 
 BEGIN_MESSAGE_MAP(ROOM, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON1, &ROOM::OnBnClickedButton1)
 	ON_BN_CLICKED(IDC_BUTTON2, &ROOM::OnBnClickedButton2)
-	ON_BN_CLICKED(IDC_BUTTON3, &ROOM::OnBnClickedButton3)
+
+	ON_NOTIFY(NM_CLICK, IDC_LIST1, &ROOM::OnClickList1)
 END_MESSAGE_MAP()
 
 // ROOM ÏûÏ¢´¦Àí³ÌÐò
@@ -38,7 +55,6 @@ END_MESSAGE_MAP()
 BOOL ROOM::OnInitDialog()				//ÖØÐ´µÄ´°¿Ú³õÊ¼»¯º¯Êý£¬ÔÚÕâÀï¿ÉÒÔÐ´Ò»Ð©¿Ø¼þµÄ³õÊ¼»¯
 {
 	CDialogEx::OnInitDialog();
-	int index;
 	// TODO:  ÔÚ´ËÌí¼Ó¶îÍâµÄ³õÊ¼»¯
 	//´°¿Ú¿Ø¼þµÄ³õÊ¼»¯
 	List.ModifyStyle(0, LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS);
@@ -49,12 +65,6 @@ BOOL ROOM::OnInitDialog()				//ÖØÐ´µÄ´°¿Ú³õÊ¼»¯º¯Êý£¬ÔÚÕâÀï¿ÉÒÔÐ´Ò»Ð©¿Ø¼þµÄ³õÊ¼»
 	List.InsertColumn(2, _T("NumberOfComputer"), LVCFMT_CENTER, 140, 0);
 	List.InsertColumn(3, _T("NumberOfWhitebash"), LVCFMT_CENTER, 140, 0);
 	List.InsertColumn(4, _T("NumberOfProject"), LVCFMT_CENTER, 140, 0);
-	//±äÁ¿³õÊ¼»¯
-	RoomID = "";
-	NumberOfSeat = "";
-	NumberOfComputer = "";
-	NumberOfWhitebash = "";
-	NumberOfProject = "";
 	//Êý¾Ý¿âÁ¬½Ó³õÊ¼»¯
 	CString DSNname = _T("DSN=BuildingManager");
 	Record = new CRecordset(&DB);
@@ -69,10 +79,6 @@ BOOL ROOM::OnInitDialog()				//ÖØÐ´µÄ´°¿Ú³õÊ¼»¯º¯Êý£¬ÔÚÕâÀï¿ÉÒÔÐ´Ò»Ð©¿Ø¼þµÄ³õÊ¼»
 	else{
 		MessageBox(_T("Êý¾Ý¿âÁ¬½ÓÊ§°Ü"));
 	}
-	
-
-	
-
 
 	return TRUE;  // return TRUE unless you set the focus to a control
 	// Òì³£:  OCX ÊôÐÔÒ³Ó¦·µ»Ø FALSE
@@ -107,6 +113,12 @@ void ROOM::OnBnClickedButton1()
 		List.SetItemText(index, 2, NumberOfComputer);
 		List.SetItemText(index, 3, NumberOfWhitebash);
 		List.SetItemText(index, 4, NumberOfProject);
+		//ÇåÀíÊý¾Ý
+		RoomID = "";
+		NumberOfSeat = "";
+		NumberOfComputer = "";
+		NumberOfWhitebash = "";
+		NumberOfProject = "";
 	}
 
 	UpdateData(false);				//¸üÐÂÊý¾Ýµ½¿Ø¼þ
@@ -114,11 +126,52 @@ void ROOM::OnBnClickedButton1()
 
 void ROOM::OnBnClickedButton2()
 {
-	// TODO:  ÔÚ´ËÌí¼Ó¿Ø¼þÍ¨Öª´¦Àí³ÌÐò´úÂë
+	UpdateData();
+	
+
+
+
+	Record->Requery();
+
+	UpdateData(false);
 }
+/*
+CString exec=_T("INSERT INTO ");
+CString tablename;
+tablename=Record->GetTableName();
+exec = exec + tablename + _T(" VALUE(\'") + ID + _T("\',\'") + seat + _T("\',\'") + computer + _T("\',\'") + broad + _T("\',\'") + project + _T("\')");
+//	MessageBox(exec);
+//	DB.ExecuteSQL(exec);
+DB.ExecuteSQL(_T(" insert into [DetailOfRoom7] VALUE( ) "));
+
+*/
 
 
-void ROOM::OnBnClickedButton3()
+
+
+
+void ROOM::OnClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 {
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	// TODO:  ÔÚ´ËÌí¼Ó¿Ø¼þÍ¨Öª´¦Àí³ÌÐò´úÂë
+	UpdateData();
+
+	//»ñÈ¡µã»÷ÐÐÊý
+	POSITION pos = List.GetFirstSelectedItemPosition();
+	if (pos == NULL)
+	{
+		MessageBox(_T("ÄãÃ»ÓÐÑ¡ÖÐÈÎºÎitem"));
+	}
+	else{
+		while (pos)
+		{
+			int line = List.GetNextSelectedItem(pos);
+		}
+	}
+
+	
+
+
+	*pResult = 0;
+	UpdateData(false);
 }
