@@ -43,6 +43,9 @@ BEGIN_MESSAGE_MAP(Room, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_contect, &Room::OnBnClickedButtoncontect)
 	ON_BN_CLICKED(IDC_BUTTON_insert, &Room::OnBnClickedButtoninsert)
 	ON_BN_CLICKED(IDC_BUTTON_delete, &Room::OnBnClickedButtondelete)
+	ON_BN_CLICKED(IDC_BUTTON_change, &Room::OnBnClickedButtonchange)
+	ON_NOTIFY(NM_CLICK, IDC_LIST1, &Room::OnClickList1)
+	ON_BN_CLICKED(IDC_BUTTON_clean, &Room::OnBnClickedButtonclean)
 END_MESSAGE_MAP()
 
 
@@ -151,19 +154,79 @@ void Room::OnBnClickedButtondelete()
 {
 	UpdateData();
 
-	long Row;
+	long Row=0;
 	POSITION pos = List.GetFirstSelectedItemPosition();
 	while (pos){
 		Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
 	}
-	Record->MoveFirst();			//首先到达记录集顶部
-	for (int i = 1; i <= Row; i++){			//一直移动到行数对应的位置
-		Record->MoveNext();
-	}
+	Record->SetAbsolutePosition(Row + 1);
 	Record->Delete();			//删除记录  
 	Record->Requery();			
 	List.DeleteAllItems();		//删除所有项
 	OnBnClickedButtoncontect();			//重新拿取数据
+
+	UpdateData(false);
+}
+
+
+
+void Room::OnBnClickedButtonchange()
+{
+	UpdateData();
+
+	long Row=0;
+	POSITION pos = List.GetFirstSelectedItemPosition();
+	while (pos){
+		Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
+	}
+	Record->SetAbsolutePosition(Row + 1);
+	Record->Edit();
+	Record->m_RoomID=ID ;
+	Record->m_NumberOfComputer = computer;
+	Record->m_NumberOfSeat = seat;
+	Record->m_NumberOfWhitebash = broad;
+	Record->m_NumberOfProject = project;
+	Record->Update();
+	Record->Requery();
+	List.DeleteAllItems();		//删除所有项
+	OnBnClickedButtoncontect();			//重新拿取数据
+
+	UpdateData(false);
+}
+
+
+void Room::OnClickList1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+
+	UpdateData();
+
+	long Row = 0;
+	POSITION pos = List.GetFirstSelectedItemPosition();
+	while (pos){
+		Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
+	}
+	Record->SetAbsolutePosition(Row+1);
+	ID = Record->m_RoomID;
+	computer = Record->m_NumberOfComputer;
+	seat = Record->m_NumberOfSeat;
+	broad = Record->m_NumberOfWhitebash;
+	project = Record->m_NumberOfProject;
+
+	*pResult = 0;
+	UpdateData(false);
+}
+
+
+void Room::OnBnClickedButtonclean()
+{
+	UpdateData();
+
+	ID = 0;
+	seat = 0;
+	computer = 0;
+	broad = 0;
+	project = 0;
 
 	UpdateData(false);
 }

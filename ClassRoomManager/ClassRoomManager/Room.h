@@ -37,4 +37,7 @@ public:
 	CString NumberOfProject;
 	CDatabase DB;
 	CClassRoomManagerSet *Record;			//动态集对象
+	afx_msg void OnBnClickedButtonchange();
+	afx_msg void OnClickList1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnBnClickedButtonclean();
 };

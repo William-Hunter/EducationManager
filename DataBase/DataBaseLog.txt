@@ -1,6 +1,6 @@
 ﻿DetailOfRoom
 表头有
-RoomID，	教室的编号  （主键）
+RoomID，	教室的编号  
 NumberOfSeat，	座位的个数
 NumberOfComputer，		计算机的个数
 NumberOfWhitebash，		白板的个数
@@ -13,8 +13,9 @@ SoftwareName		计算机上安装的软件，因为会有很多软件，所以设
 DamageStatus		计算机是否处于损毁状态  是否
 DamageRemark	损毁原因
 FixLog			维修记录
-BlongOfRoomID	所属教室的编号  （外键）
+BlongOfRoomID	所属教室的编号  
 
 
 2015/4/3  15:00  ----  目前假想对于计算机专业的教室进行了建表，倘若以后还有其他专业的教室需要纳入考虑范围，会再建新表
-2015/4/10  10:37  ----修改了数据库和表的名字,现在template是无内容的模板表，例如，我需要一个7304的表，那么就建立DetailOfRoom的副本文件，将其重命名为DetailOfRoom7304，
+2015/4/10  10:37  ----修改了数据库和表的名字,现在template是无内容的模板表，例如，我需要一个教室信息表，那么就建立DetailOfRoom template的副本文件，将其重命名为DetailOfRoom，
+2015/5/9   -------由于MFC 记录集编辑函数重新插入记录会造成主键重复，所以去除了主键。
