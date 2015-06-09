@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "Room.h"
 
 class CMainFrame : public CFrameWnd
 {
@@ -40,6 +41,7 @@ protected:
 
 public:
 	afx_msg void On32771();
+	Room dialog;
 };
 
 

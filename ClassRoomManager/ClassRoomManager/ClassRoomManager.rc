@@ -141,10 +141,7 @@ BEGIN
     BEGIN
         MENUITEM "关于 ClassRoomManager(&A)...",  ID_APP_ABOUT
     END
-    POPUP "查看信息表"
-    BEGIN
-        MENUITEM "教室基本信息",                      ID_32771
-    END
+    MENUITEM "教室信息表",                       ID_32771
 END
 
 
@@ -189,31 +186,39 @@ IDD_CLASSROOMMANAGER_FORM DIALOGEX 0, 0, 320, 200
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
-    LTEXT           "TODO:  将窗体控件放置在此对话框上。",IDC_STATIC,24,42,280,8
+    LTEXT           "TODO: 将窗体控件放置在此对话框上。",IDC_STATIC,24,42,280,8
 END
 
-IDD_DIALOG1 DIALOGEX 0, 0, 340, 211
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Room Information"
-FONT 9, "微软雅黑", 400, 0, 0x86
+IDD_DIALOG1 DIALOGEX 0, 0, 312, 173
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "多媒体教室信息"
+FONT 10, "微软雅黑", 400, 0, 0x86
 BEGIN
-    DEFPUSHBUTTON   "离开",IDOK,283,190,50,14
-    CONTROL         "",IDC_LIST1,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,326,93
-    PUSHBUTTON      "连接到数据库",IDC_BUTTON_contect,30,109,275,23
-    EDITTEXT        IDC_EDIT_ID,15,155,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_computer,121,155,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_seat,69,155,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_broad,181,155,40,14,ES_AUTOHSCROLL
-    EDITTEXT        IDC_EDIT_project,238,154,40,14,ES_AUTOHSCROLL
-    LTEXT           "教室编号",IDC_STATIC,23,140,31,8
-    LTEXT           "电脑数量",IDC_STATIC,122,141,36,8
-    LTEXT           "白板数量",IDC_STATIC,187,141,35,8
-    LTEXT           "投影仪数量",IDC_STATIC,239,142,42,8
-    LTEXT           "座位数量",IDC_STATIC,72,141,32,8
-    PUSHBUTTON      "插入数据",IDC_BUTTON_insert,25,178,50,14
-    PUSHBUTTON      "删除所选数据",IDC_BUTTON_delete,219,178,50,14
-    PUSHBUTTON      "保存对于所选项的修改",IDC_BUTTON_change,110,178,80,14
-    PUSHBUTTON      "清空",IDC_BUTTON_clean,294,144,20,24
+    PUSHBUTTON      "离开",IDCANCEL,255,152,50,14
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,298,109
+    PUSHBUTTON      "插入新数据",IDC_BUTTON_insert,7,152,50,14
+    PUSHBUTTON      "编辑所选项",IDC_BUTTON_change,90,152,50,14
+    PUSHBUTTON      "删除所选项",IDC_BUTTON_delete,174,152,50,14
+    PUSHBUTTON      "显示数据",IDC_BUTTON_display,84,124,140,14
+END
+
+IDD_DIALOG2 DIALOGEX 0, 0, 311, 81
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "输入窗口"
+FONT 10, "微软雅黑", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "取消",IDCANCEL,254,60,50,14
+    DEFPUSHBUTTON   "确定",IDOK,7,60,50,14
+    LTEXT           "教室编号",IDC_STATIC,21,16,28,8
+    LTEXT           "座位数量",IDC_STATIC,83,17,28,8
+    LTEXT           "计算机数量",IDC_STATIC,138,17,35,8
+    LTEXT           "白板数量",IDC_STATIC,198,17,28,8
+    LTEXT           "投影仪数量",IDC_STATIC,252,17,35,8
+    EDITTEXT        IDC_EDIT_ID,16,35,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_seat,78,36,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_computer,138,35,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_borad,196,35,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_project,251,36,40,14,ES_AUTOHSCROLL
 END
 
 
@@ -239,13 +244,13 @@ BEGIN
     BEGIN
         BLOCK "080404B0"
         BEGIN
-            VALUE "CompanyName", "TODO:  <公司名>"
+            VALUE "CompanyName", "TODO: <公司名>"
             VALUE "FileDescription", "ClassRoomManager"
             VALUE "FileVersion", "1.0.0.1"
             VALUE "InternalName", "ClassRoomManager.exe"
-            VALUE "LegalCopyright", "TODO:  (C) <公司名>。  保留所有权利。"
+            VALUE "LegalCopyright", "TODO: (C) <公司名>。保留所有权利。"
             VALUE "OriginalFilename", "ClassRoomManager.exe"
-            VALUE "ProductName", "TODO:  <产品名>"
+            VALUE "ProductName", "TODO: <产品名>"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -283,9 +288,17 @@ BEGIN
     IDD_DIALOG1, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 333
+        RIGHTMARGIN, 305
         TOPMARGIN, 7
-        BOTTOMMARGIN, 204
+        BOTTOMMARGIN, 166
+    END
+
+    IDD_DIALOG2, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 304
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 74
     END
 END
 #endif    // APSTUDIO_INVOKED
@@ -298,7 +311,7 @@ END
 
 STRINGTABLE
 BEGIN
-    IDP_OLE_INIT_FAILED     "OLE 初始化失败。  请确保 OLE 库是正确的版本。"
+    IDP_OLE_INIT_FAILED     "OLE 初始化失败。请确保 OLE 库是正确的版本。"
     IDP_FAILED_OPEN_DATABASE "无法打开数据库。"
 END
 

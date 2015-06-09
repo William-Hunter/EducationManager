@@ -30,7 +30,7 @@ END_MESSAGE_MAP()
 
 CClassRoomManagerDoc::CClassRoomManagerDoc()
 {
-	// TODO:  在此添加一次性构造代码
+	// TODO: 在此添加一次性构造代码
 
 }
 
@@ -43,7 +43,7 @@ BOOL CClassRoomManagerDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
-	// TODO:  在此添加重新初始化代码
+	// TODO: 在此添加重新初始化代码
 	// (SDI 文档将重用该文档)
 
 	return TRUE;
@@ -81,7 +81,7 @@ void CClassRoomManagerDoc::InitializeSearchContent()
 	// 从文档数据设置搜索内容。
 	// 内容部分应由“;”分隔
 
-	// 例如:     strSearchContent = _T("point;rectangle;circle;ole object;")；
+	// 例如:  strSearchContent = _T("point;rectangle;circle;ole object;")；
 	SetSearchContent(strSearchContent);
 }
 

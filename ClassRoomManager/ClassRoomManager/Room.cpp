@@ -3,9 +3,11 @@
 
 #include "stdafx.h"
 #include "ClassRoomManager.h"
-#include "ClassRoomManagerSet.h"
 #include "Room.h"
 #include "afxdialogex.h"
+#include "Input.h"
+
+
 
 
 // Room 对话框
@@ -14,11 +16,6 @@ IMPLEMENT_DYNAMIC(Room, CDialogEx)
 
 Room::Room(CWnd* pParent /*=NULL*/)
 	: CDialogEx(Room::IDD, pParent)
-	, broad(0)
-	, computer(0)
-	, ID(0)
-	, project(0)
-	, seat(0)
 {
 
 }
@@ -31,45 +28,34 @@ void Room::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST1, List);
-	DDX_Text(pDX, IDC_EDIT_broad, broad);
-	DDX_Text(pDX, IDC_EDIT_computer, computer);
-	DDX_Text(pDX, IDC_EDIT_ID, ID);
-	DDX_Text(pDX, IDC_EDIT_project, project);
-	DDX_Text(pDX, IDC_EDIT_seat, seat);
 }
 
 
 BEGIN_MESSAGE_MAP(Room, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON_contect, &Room::OnBnClickedButtoncontect)
+	ON_BN_CLICKED(IDC_BUTTON_display, &Room::OnBnClickedButtondisplay)
 	ON_BN_CLICKED(IDC_BUTTON_insert, &Room::OnBnClickedButtoninsert)
-	ON_BN_CLICKED(IDC_BUTTON_delete, &Room::OnBnClickedButtondelete)
 	ON_BN_CLICKED(IDC_BUTTON_change, &Room::OnBnClickedButtonchange)
-	ON_NOTIFY(NM_CLICK, IDC_LIST1, &Room::OnClickList1)
-	ON_BN_CLICKED(IDC_BUTTON_clean, &Room::OnBnClickedButtonclean)
+	ON_BN_CLICKED(IDC_BUTTON_delete, &Room::OnBnClickedButtondelete)
+	ON_BN_CLICKED(IDCANCEL, &Room::OnBnClickedCancel)
+ON_NOTIFY(NM_CLICK, IDC_LIST1, &Room::OnClickList1)
 END_MESSAGE_MAP()
 
 
 // Room 消息处理程序
 
 
-BOOL Room::OnInitDialog()				//初始化的虚函数
+BOOL Room::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
-	//对于变量进行初始化赋值
-	RoomID = "";
-	NumberOfSeat = "";
-	NumberOfComputer = "";
-	NumberOfWhitebash = "";
-	NumberOfProject = "";
 	//窗口控件的初始化
 	List.ModifyStyle(0, LVS_REPORT | LVS_SINGLESEL | LVS_SHOWSELALWAYS);
 	List.SetTextColor(RGB(0, 0, 0));
 	List.SetBkColor(RGB(255, 255, 255));
-	List.InsertColumn(0, _T("RoomID"), LVCFMT_CENTER, 80, 0);
-	List.InsertColumn(1, _T("NumberOfSeat"), LVCFMT_CENTER, 140, 0);
-	List.InsertColumn(2, _T("NumberOfComputer"), LVCFMT_CENTER, 180, 0);
-	List.InsertColumn(3, _T("NumberOfWhitebash"), LVCFMT_CENTER, 180, 0);
-	List.InsertColumn(4, _T("NumberOfProject"), LVCFMT_CENTER, 160, 0);
+	List.InsertColumn(0, _T("教室编号"), LVCFMT_CENTER, 80, 0);
+	List.InsertColumn(1, _T("座位数量"), LVCFMT_CENTER, 140, 0);
+	List.InsertColumn(2, _T("计算机数量"), LVCFMT_CENTER, 180, 0);
+	List.InsertColumn(3, _T("演示白板数量"), LVCFMT_CENTER, 180, 0);
+	List.InsertColumn(4, _T("投影仪数量"), LVCFMT_CENTER, 160, 0);
 	//对数据库进行连接，并且打开表，是的记录集成为动态的，
 	CString DSNname = _T("DSN=BuildingManager");
 	Record = new CClassRoomManagerSet(&DB);
@@ -85,12 +71,10 @@ BOOL Room::OnInitDialog()				//初始化的虚函数
 		MessageBox(_T("数据库连接失败"));
 	}
 
-	return TRUE;  // return TRUE unless you set the focus to a control
-	// 异常:  OCX 属性页应返回 FALSE
+	return TRUE;  
 }
 
-
-void Room::OnBnClickedButtoncontect()
+void Room::OnBnClickedButtondisplay()
 {
 	UpdateData();			//从控件更新数据到变量
 
@@ -110,7 +94,7 @@ void Room::OnBnClickedButtoncontect()
 		lvitem.iItem = index;
 		lvitem.mask = LVFIF_TEXT;
 		lvitem.iSubItem = 0;
-		lvitem.pszText = (LPWSTR)(char *)(LPCTSTR)RoomID;
+		lvitem.pszText = (char *)(LPCTSTR)RoomID;
 		//插入一行
 		List.InsertItem(&lvitem);				//插入一行，
 		List.SetItemText(index, 0, RoomID);				//在这个坐标的格子上，插入变量
@@ -130,21 +114,63 @@ void Room::OnBnClickedButtoncontect()
 }
 
 
-void Room::OnBnClickedButtoninsert()		//插入按钮的响应函数
+void Room::OnBnClickedButtoninsert()
 {
 	UpdateData();
 
-	Record->MoveLast();		//让动态记录集指向第一个记录
-	Record->AddNew();		//添加一条新的记录
-	Record->m_RoomID = ID;			//为新记录的变量赋值
-	Record->m_NumberOfComputer = computer;		
-	Record->m_NumberOfSeat = seat;
-	Record->m_NumberOfWhitebash = broad;
-	Record->m_NumberOfProject = project;
-	Record->Update();		//刷新纪录
-	Record->Requery();		
-	List.DeleteAllItems();			//删除列表控件内的所有项
-	OnBnClickedButtoncontect();		//重新把数据从表拿到列表
+	ExChange::Clean();
+	Input dialog;
+	dialog.DoModal();
+	if(ExChange::FLAG==TRUE){
+		Record->MoveLast();	            	//让动态记录集指向第一个记录
+		Record->AddNew();	                	//添加一条新的记录
+		Record->m_RoomID = ExChange::ID;		    	//为新记录的变量赋值
+		Record->m_NumberOfComputer = ExChange::computer;		
+		Record->m_NumberOfSeat = ExChange::seat;
+		Record->m_NumberOfWhitebash = ExChange::borad;
+		Record->m_NumberOfProject = ExChange::project;
+		Record->Update();		          //刷新纪录
+		Record->Requery();		
+		List.DeleteAllItems();		      	//删除列表控件内的所有项
+		OnBnClickedButtondisplay();	     	//重新把数据从表拿到列表
+		ExChange::Clean();
+	}else{
+		MessageBox("未能完成插入");
+		return ;
+	}
+	
+	UpdateData(false);
+}
+
+
+void Room::OnBnClickedButtonchange()
+{
+	UpdateData();
+
+	Input dialog;
+	dialog.DoModal();
+	if(ExChange::FLAG==TRUE){
+		long Row=0;
+		POSITION pos = List.GetFirstSelectedItemPosition();
+		while (pos){
+			Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
+		}
+		Record->SetAbsolutePosition(Row + 1);
+		Record->Edit();
+		Record->m_RoomID = ExChange::ID;		    	//为新记录的变量赋值
+		Record->m_NumberOfComputer = ExChange::computer;		
+		Record->m_NumberOfSeat = ExChange::seat;
+		Record->m_NumberOfWhitebash = ExChange::borad;
+		Record->m_NumberOfProject = ExChange::project;
+		Record->Update();
+		Record->Requery();
+		List.DeleteAllItems();		//删除所有项
+		OnBnClickedButtondisplay();	     	//重新把数据从表拿到列表
+		ExChange::Clean();
+	}else{
+		MessageBox("未能完成编辑");
+		return ;
+	}
 
 	UpdateData(false);
 }
@@ -163,42 +189,23 @@ void Room::OnBnClickedButtondelete()
 	Record->Delete();			//删除记录  
 	Record->Requery();			
 	List.DeleteAllItems();		//删除所有项
-	OnBnClickedButtoncontect();			//重新拿取数据
+	OnBnClickedButtondisplay();	     		//重新拿取数据
 
 	UpdateData(false);
 }
 
 
-
-void Room::OnBnClickedButtonchange()
+void Room::OnBnClickedCancel()
 {
-	UpdateData();
-
-	long Row=0;
-	POSITION pos = List.GetFirstSelectedItemPosition();
-	while (pos){
-		Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
-	}
-	Record->SetAbsolutePosition(Row + 1);
-	Record->Edit();
-	Record->m_RoomID=ID ;
-	Record->m_NumberOfComputer = computer;
-	Record->m_NumberOfSeat = seat;
-	Record->m_NumberOfWhitebash = broad;
-	Record->m_NumberOfProject = project;
-	Record->Update();
-	Record->Requery();
-	List.DeleteAllItems();		//删除所有项
-	OnBnClickedButtoncontect();			//重新拿取数据
-
-	UpdateData(false);
+	CDialogEx::OnCancel();
 }
+
+
 
 
 void Room::OnClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 {
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
-
 	UpdateData();
 
 	long Row = 0;
@@ -207,26 +214,17 @@ void Room::OnClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 		Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
 	}
 	Record->SetAbsolutePosition(Row+1);
-	ID = Record->m_RoomID;
-	computer = Record->m_NumberOfComputer;
-	seat = Record->m_NumberOfSeat;
-	broad = Record->m_NumberOfWhitebash;
-	project = Record->m_NumberOfProject;
+	ExChange::ID = Record->m_RoomID;
+	ExChange::computer = Record->m_NumberOfComputer;
+	ExChange::seat = Record->m_NumberOfSeat;
+	ExChange::borad = Record->m_NumberOfWhitebash;
+	ExChange::project = Record->m_NumberOfProject;
 
 	*pResult = 0;
 	UpdateData(false);
 }
 
 
-void Room::OnBnClickedButtonclean()
-{
-	UpdateData();
 
-	ID = 0;
-	seat = 0;
-	computer = 0;
-	broad = 0;
-	project = 0;
 
-	UpdateData(false);
-}
+

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{AF61B4BE-582B-48C3-891A-9873B5B2BB6B}</ProjectGuid>
+    <ProjectGuid>{25694305-3447-4610-B40E-986F937E5F05}</ProjectGuid>
     <RootNamespace>ClassRoomManager</RootNamespace>
     <Keyword>MFCProj</Keyword>
   </PropertyGroup>
@@ -19,16 +19,16 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v110</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
     <UseOfMfc>Dynamic</UseOfMfc>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -107,6 +107,8 @@
     <ClInclude Include="ClassRoomManagerDoc.h" />
     <ClInclude Include="ClassRoomManagerSet.h" />
     <ClInclude Include="ClassRoomManagerView.h" />
+    <ClInclude Include="ExChange.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Room.h" />
@@ -118,6 +120,8 @@
     <ClCompile Include="ClassRoomManagerDoc.cpp" />
     <ClCompile Include="ClassRoomManagerSet.cpp" />
     <ClCompile Include="ClassRoomManagerView.cpp" />
+    <ClCompile Include="ExChange.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -1,6 +1,7 @@
 #pragma once
 #include "afxcmn.h"
 #include "ClassRoomManagerSet.h"
+#include "ExChange.h"
 
 // Room 对话框
 
@@ -20,24 +21,20 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	virtual BOOL OnInitDialog();
-	afx_msg void OnBnClickedButtoncontect();
+	afx_msg void OnBnClickedButtondisplay();
 	afx_msg void OnBnClickedButtoninsert();
+	afx_msg void OnBnClickedButtonchange();
 	afx_msg void OnBnClickedButtondelete();
+	afx_msg void OnBnClickedCancel();
+	virtual BOOL OnInitDialog();
 	CListCtrl List;
-	long broad;
-	long computer;
-	long ID;
-	long project;
-	long seat;
+	CDatabase DB;
+	CClassRoomManagerSet *Record;			//动态集对象
+	//用来从数据库赋值到控件上的变量
 	CString RoomID;
 	CString NumberOfSeat;
 	CString NumberOfComputer;
 	CString NumberOfWhitebash;
 	CString NumberOfProject;
-	CDatabase DB;
-	CClassRoomManagerSet *Record;			//动态集对象
-	afx_msg void OnBnClickedButtonchange();
 	afx_msg void OnClickList1(NMHDR *pNMHDR, LRESULT *pResult);
-	afx_msg void OnBnClickedButtonclean();
 };

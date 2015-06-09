@@ -13,7 +13,7 @@
 
 // CClassRoomManagerSet 实现
 
-// 代码生成在 2015年5月 星期六, 17:22
+// 代码生成在 2015年6月 星期二, 17:50
 
 IMPLEMENT_DYNAMIC(CClassRoomManagerSet, CRecordset)
 

@@ -23,7 +23,7 @@
 #include <afxdisp.h>        // MFC 自动化类
 
 
- // 此处要求最小 DB 支持。  未选择任何视图。
+ // 此处要求最小 DB 支持。未选择任何视图。
 
 #ifndef _AFX_NO_OLE_SUPPORT
 #include <afxdtctl.h>           // MFC 对 Internet Explorer 4 公共控件的支持

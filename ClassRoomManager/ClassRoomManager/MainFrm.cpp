@@ -4,12 +4,22 @@
 
 #include "stdafx.h"
 #include "ClassRoomManager.h"
-#include "Room.h"
+
 #include "MainFrm.h"
+#include "Input.h"
+
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
+
+long ExChange::borad=0;
+long ExChange::computer=0;
+long ExChange::ID=0;
+long ExChange::project=0;
+long ExChange::seat=0;
+bool ExChange::FLAG=TRUE;
 
 // CMainFrame
 
@@ -32,7 +42,7 @@ static UINT indicators[] =
 
 CMainFrame::CMainFrame()
 {
-	// TODO:  在此添加成员初始化代码
+	// TODO: 在此添加成员初始化代码
 }
 
 CMainFrame::~CMainFrame()
@@ -58,7 +68,7 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	}
 	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
 
-	// TODO:  如果不需要可停靠工具栏，则删除这三行
+	// TODO: 如果不需要可停靠工具栏，则删除这三行
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockControlBar(&m_wndToolBar);
@@ -71,7 +81,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWnd::PreCreateWindow(cs) )
 		return FALSE;
-	// TODO:  在此处通过修改
+	// TODO: 在此处通过修改
 	//  CREATESTRUCT cs 来修改窗口类或样式
 
 	return TRUE;
@@ -98,6 +108,6 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 void CMainFrame::On32771()
 {
-	Room dialog;
-	dialog.DoModal();
+	dialog.Create(IDD_DIALOG1);
+	dialog.ShowWindow(SW_SHOW);
 }

@@ -35,7 +35,7 @@ CClassRoomManagerView::CClassRoomManagerView()
 	: CRecordView(CClassRoomManagerView::IDD)
 {
 	m_pSet = NULL;
-	// TODO:  在此处添加构造代码
+	// TODO: 在此处添加构造代码
 
 }
 
@@ -54,7 +54,7 @@ void CClassRoomManagerView::DoDataExchange(CDataExchange* pDX)
 
 BOOL CClassRoomManagerView::PreCreateWindow(CREATESTRUCT& cs)
 {
-	// TODO:  在此处通过修改
+	// TODO: 在此处通过修改
 	//  CREATESTRUCT cs 来修改窗口类或样式
 
 	return CRecordView::PreCreateWindow(cs);
@@ -78,12 +78,12 @@ BOOL CClassRoomManagerView::OnPreparePrinting(CPrintInfo* pInfo)
 
 void CClassRoomManagerView::OnBeginPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO:  添加额外的打印前进行的初始化过程
+	// TODO: 添加额外的打印前进行的初始化过程
 }
 
 void CClassRoomManagerView::OnEndPrinting(CDC* /*pDC*/, CPrintInfo* /*pInfo*/)
 {
-	// TODO:  添加打印后进行的清理过程
+	// TODO: 添加打印后进行的清理过程
 }
 
 
