@@ -61,19 +61,15 @@ BOOL Input::OnInitDialog()
 	return TRUE;  // return TRUE unless you set the focus to a control
 }
 
-
 void Input::OnBnClickedOk()
 {
 	UpdateData();
-	if(seat==NULL||computer==NULL||ID==NULL){
+	if(ID==NULL){
 		MessageBox("你还没有完全输入");
 		ExChange::FLAG=FALSE;
+		return ;
 	}else{
-		ExChange::ID=ID;
-		ExChange::seat=seat;
-		ExChange::borad=borad;
-		ExChange::computer=computer;
-		ExChange::project=project;
+		ExChange::Set(ID,seat,computer,borad,project);
 		ExChange::FLAG=TRUE;
 	}
 	UpdateData(false);

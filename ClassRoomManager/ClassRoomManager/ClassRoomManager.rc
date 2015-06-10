@@ -141,7 +141,7 @@ BEGIN
     BEGIN
         MENUITEM "关于 ClassRoomManager(&A)...",  ID_APP_ABOUT
     END
-    MENUITEM "查看教室信息表",                     ID_32771
+    MENUITEM "查看编辑教室信息表",                   ID_32771
     MENUITEM "寻找你需要的教室",                    ID_32772
 END
 
@@ -190,17 +190,16 @@ BEGIN
     LTEXT           "TODO: 将窗体控件放置在此对话框上。",IDC_STATIC,24,42,280,8
 END
 
-IDD_DIALOG1 DIALOGEX 0, 0, 312, 173
+IDD_DIALOG1 DIALOGEX 0, 0, 312, 147
 STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "多媒体教室信息"
+CAPTION "教室信息表"
 FONT 10, "微软雅黑", 400, 0, 0x86
 BEGIN
-    PUSHBUTTON      "离开",IDCANCEL,255,152,50,14
+    PUSHBUTTON      "离开",IDCANCEL,255,126,50,14
     CONTROL         "",IDC_LIST1,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,298,109
-    PUSHBUTTON      "插入新数据",IDC_BUTTON_insert,7,152,50,14
-    PUSHBUTTON      "编辑所选项",IDC_BUTTON_change,90,152,50,14
-    PUSHBUTTON      "删除所选项",IDC_BUTTON_delete,174,152,50,14
-    PUSHBUTTON      "显示数据",IDC_BUTTON_display,84,124,140,14
+    PUSHBUTTON      "插入新数据",IDC_BUTTON_insert,7,126,50,14
+    PUSHBUTTON      "编辑所选项",IDC_BUTTON_change,90,126,50,14
+    PUSHBUTTON      "删除所选项",IDC_BUTTON_delete,174,126,50,14
 END
 
 IDD_DIALOG2 DIALOGEX 0, 0, 311, 81
@@ -210,8 +209,8 @@ FONT 10, "微软雅黑", 400, 0, 0x86
 BEGIN
     PUSHBUTTON      "取消",IDCANCEL,254,60,50,14
     DEFPUSHBUTTON   "确定",IDOK,7,60,50,14
-    LTEXT           "教室编号",IDC_STATIC,21,16,28,8
-    LTEXT           "座位数量",IDC_STATIC,83,17,28,8
+    LTEXT           "教室编号*",IDC_STATIC,18,16,31,8
+    LTEXT           "座位数量",IDC_STATIC,80,17,28,8
     LTEXT           "计算机数量",IDC_STATIC,138,17,35,8
     LTEXT           "白板数量",IDC_STATIC,198,17,28,8
     LTEXT           "投影仪数量",IDC_STATIC,252,17,35,8
@@ -220,6 +219,37 @@ BEGIN
     EDITTEXT        IDC_EDIT_computer,138,35,40,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_borad,196,35,40,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_project,251,36,40,14,ES_AUTOHSCROLL
+    LTEXT           "* 为必填",IDC_STATIC,132,58,27,8
+END
+
+IDD_DIALOG_Found DIALOGEX 0, 0, 124, 117
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "寻找你需要的教室"
+FONT 10, "微软雅黑", 400, 0, 0x86
+BEGIN
+    DEFPUSHBUTTON   "查找",ID_search,7,98,34,12
+    PUSHBUTTON      "取消",IDCANCEL,82,98,35,12
+    LTEXT           "计算机不少于",IDC_STATIC,15,22,42,8
+    EDITTEXT        IDC_EDIT_FindComputer,58,21,40,12,ES_AUTOHSCROLL
+    LTEXT           "个",IDC_STATIC,100,23,8,8
+    LTEXT           "座位不少于",IDC_STATIC,20,39,35,8
+    EDITTEXT        IDC_EDIT_FindSeat,58,37,40,12,ES_AUTOHSCROLL
+    LTEXT           "个",IDC_STATIC,100,39,8,8
+    LTEXT           "投影仪不少于",IDC_STATIC,14,55,42,8
+    EDITTEXT        IDC_EDIT_FindProject,58,53,40,12,ES_AUTOHSCROLL
+    LTEXT           "个",IDC_STATIC,100,55,8,8
+    LTEXT           "写字板不少于",IDC_STATIC,14,71,42,8
+    EDITTEXT        IDC_EDIT_FindBorad,58,69,40,12,ES_AUTOHSCROLL
+    LTEXT           "个",IDC_STATIC,100,71,8,8
+END
+
+IDD_DIALOG_display DIALOGEX 0, 0, 312, 111
+STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
+CAPTION "查看结果"
+FONT 10, "微软雅黑", 400, 0, 0x86
+BEGIN
+    PUSHBUTTON      "结束",IDCANCEL,255,90,50,14
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,298,75
 END
 
 
@@ -291,7 +321,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 305
         TOPMARGIN, 7
-        BOTTOMMARGIN, 166
+        BOTTOMMARGIN, 140
     END
 
     IDD_DIALOG2, DIALOG
@@ -300,6 +330,22 @@ BEGIN
         RIGHTMARGIN, 304
         TOPMARGIN, 7
         BOTTOMMARGIN, 74
+    END
+
+    IDD_DIALOG_Found, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 117
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 110
+    END
+
+    IDD_DIALOG_display, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 305
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 104
     END
 END
 #endif    // APSTUDIO_INVOKED

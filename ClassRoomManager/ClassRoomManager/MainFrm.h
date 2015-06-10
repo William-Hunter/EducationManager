@@ -4,6 +4,7 @@
 
 #pragma once
 #include "Room.h"
+#include "Finder.h"
 
 class CMainFrame : public CFrameWnd
 {
@@ -41,7 +42,9 @@ protected:
 
 public:
 	afx_msg void On32771();
-	Room dialog;
+	Room dialogRoom;
+	afx_msg void On32772();
+	Finder dialogFind;
 };
 
 

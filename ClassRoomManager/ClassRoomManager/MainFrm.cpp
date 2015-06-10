@@ -14,12 +14,19 @@
 #endif
 
 
+
 long ExChange::borad=0;
 long ExChange::computer=0;
 long ExChange::ID=0;
 long ExChange::project=0;
 long ExChange::seat=0;
 bool ExChange::FLAG=TRUE;
+long ExChange::FindBorad=0;
+long ExChange::FindComputer=0;
+long ExChange::FindProject=0;
+long ExChange::FindSeat=0;
+
+
 
 // CMainFrame
 
@@ -28,6 +35,7 @@ IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_COMMAND(ID_32771, &CMainFrame::On32771)
+	ON_COMMAND(ID_32772, &CMainFrame::On32772)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -103,12 +111,14 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 // CMainFrame 消息处理程序
 
-
-
 void CMainFrame::On32771()
 {
-	dialog.Create(IDD_DIALOG1);	
-	dialog.ShowWindow(SW_SHOW);
-	
-	
+	dialogRoom.Create(IDD_DIALOG1);	
+	dialogRoom.ShowWindow(SW_SHOW);
+}
+
+void CMainFrame::On32772()
+{
+	dialogFind.Create(IDD_DIALOG_Found);
+	dialogFind.ShowWindow(SW_SHOW);
 }

@@ -10,6 +10,8 @@
 #define IDR_ClassRoomManageTYPE         130
 #define IDD_DIALOG1                     310
 #define IDD_DIALOG2                     311
+#define IDD_DIALOG_Found                312
+#define IDD_DIALOG_display              313
 #define IDC_LIST1                       1000
 #define IDC_BUTTON_insert               1001
 #define IDC_BUTTON_change               1002
@@ -20,6 +22,11 @@
 #define IDC_EDIT_computer               1008
 #define IDC_EDIT_borad                  1009
 #define IDC_EDIT_project                1010
+#define ID_search                       1011
+#define IDC_EDIT_FindComputer           1012
+#define IDC_EDIT_FindSeat               1013
+#define IDC_EDIT_FindProject            1014
+#define IDC_EDIT_FindBorad              1015
 #define ID_32771                        32771
 #define ID_32772                        32772
 
@@ -27,9 +34,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        312
+#define _APS_NEXT_RESOURCE_VALUE        314
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1011
+#define _APS_NEXT_CONTROL_VALUE         1015
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

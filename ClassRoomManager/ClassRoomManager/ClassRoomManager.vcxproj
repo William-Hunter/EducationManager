@@ -107,7 +107,9 @@
     <ClInclude Include="ClassRoomManagerDoc.h" />
     <ClInclude Include="ClassRoomManagerSet.h" />
     <ClInclude Include="ClassRoomManagerView.h" />
+    <ClInclude Include="Display.h" />
     <ClInclude Include="ExChange.h" />
+    <ClInclude Include="Finder.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="MainFrm.h" />
     <ClInclude Include="Resource.h" />
@@ -120,7 +122,9 @@
     <ClCompile Include="ClassRoomManagerDoc.cpp" />
     <ClCompile Include="ClassRoomManagerSet.cpp" />
     <ClCompile Include="ClassRoomManagerView.cpp" />
+    <ClCompile Include="Display.cpp" />
     <ClCompile Include="ExChange.cpp" />
+    <ClCompile Include="Finder.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="MainFrm.cpp" />
     <ClCompile Include="Room.cpp" />

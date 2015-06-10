@@ -21,7 +21,6 @@ protected:
 
 	DECLARE_MESSAGE_MAP()
 public:
-	afx_msg void OnBnClickedButtondisplay();
 	afx_msg void OnBnClickedButtoninsert();
 	afx_msg void OnBnClickedButtonchange();
 	afx_msg void OnBnClickedButtondelete();
@@ -38,4 +37,5 @@ public:
 	CString NumberOfProject;
 	afx_msg void OnClickList1(NMHDR *pNMHDR, LRESULT *pResult);
 	long TakeLine();
+	void Contect();
 };

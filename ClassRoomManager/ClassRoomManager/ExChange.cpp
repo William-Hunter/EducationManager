@@ -20,3 +20,16 @@ void ExChange::Clean(void)
 	seat=0;
 	FLAG=FALSE;
 }
+
+void ExChange::Set(long theID,long theseat,long thecomputer,long theborad,long theproject)
+{
+	ID=theID;
+	seat=theseat;
+	computer=thecomputer;
+	borad=theborad;
+	project=theproject;
+}
+
+
+
+

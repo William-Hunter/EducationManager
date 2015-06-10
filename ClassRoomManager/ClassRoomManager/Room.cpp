@@ -28,7 +28,6 @@ void Room::DoDataExchange(CDataExchange* pDX)
 
 
 BEGIN_MESSAGE_MAP(Room, CDialogEx)
-	ON_BN_CLICKED(IDC_BUTTON_display, &Room::OnBnClickedButtondisplay)
 	ON_BN_CLICKED(IDC_BUTTON_insert, &Room::OnBnClickedButtoninsert)
 	ON_BN_CLICKED(IDC_BUTTON_change, &Room::OnBnClickedButtonchange)
 	ON_BN_CLICKED(IDC_BUTTON_delete, &Room::OnBnClickedButtondelete)
@@ -38,7 +37,6 @@ END_MESSAGE_MAP()
 
 
 // Room 消息处理程序
-
 
 BOOL Room::OnInitDialog()
 {
@@ -66,11 +64,12 @@ BOOL Room::OnInitDialog()
 	else{
 		MessageBox(_T("数据库连接失败"));
 	}
+	Contect();
 
 	return TRUE;  
 }
 
-void Room::OnBnClickedButtondisplay()
+void Room::Contect()
 {
 	UpdateData();																		//从控件更新数据到变量
 
@@ -83,7 +82,6 @@ void Room::OnBnClickedButtondisplay()
 		Record->GetFieldValue((short)2, NumberOfComputer);
 		Record->GetFieldValue((short)3, NumberOfWhitebash);
 		Record->GetFieldValue((short)4, NumberOfProject);
-		Record->MoveNext();														//记录集移动到下一条
 		//定义行
 		LV_ITEM lvitem;																// 设置行的变量
 		index = List.GetItemCount();												//获取当前行数
@@ -104,6 +102,7 @@ void Room::OnBnClickedButtondisplay()
 		NumberOfComputer = "";
 		NumberOfWhitebash = "";
 		NumberOfProject = "";
+		Record->MoveNext();														//记录集移动到下一条
 	}
 
 	UpdateData(false);																//更新数据到控件
@@ -128,11 +127,8 @@ void Room::OnBnClickedButtoninsert()
 		Record->Update();														   //刷新纪录
 		Record->Requery();		
 		List.DeleteAllItems();		      											//删除列表控件内的所有项
-		OnBnClickedButtondisplay();	     										//重新把数据从表拿到列表
+		Contect();							     										//重新把数据从表拿到列表
 		ExChange::Clean();															//清理数据交换变量
-	}else{
-		MessageBox("未能完成插入");
-		return ;
 	}
 	
 	UpdateData(false);
@@ -166,11 +162,8 @@ void Room::OnBnClickedButtonchange()
 		Record->Update();															//更新数据
 		Record->Requery();
 		List.DeleteAllItems();														//删除所有项
-		OnBnClickedButtondisplay();	     										//重新把数据从表拿到列表
+		Contect();							     										//重新把数据从表拿到列表
 		ExChange::Clean();
-	}else{																					//如果用户未能完成输入
-		MessageBox("未能完成编辑");
-		return ;
 	}
 
 	UpdateData(false);
@@ -185,7 +178,7 @@ void Room::OnBnClickedButtondelete()
 	Record->Delete();																//删除记录  
 	Record->Requery();			
 	List.DeleteAllItems();															//删除所有项
-	OnBnClickedButtondisplay();	     											//重新拿取数据
+	Contect();							     											//重新拿取数据
 
 	UpdateData(false);
 }
@@ -197,11 +190,9 @@ void Room::OnClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 	UpdateData();
 
 	Record->SetAbsolutePosition(TakeLine());								//获取用户点击的行号
-	ExChange::ID = Record->m_RoomID;										//将这行的数据复制到静态变量
-	ExChange::computer = Record->m_NumberOfComputer;
-	ExChange::seat = Record->m_NumberOfSeat;
-	ExChange::borad = Record->m_NumberOfWhitebash;
-	ExChange::project = Record->m_NumberOfProject;
+
+	//将这行的数据复制到静态变量
+	ExChange::Set(Record->m_RoomID,Record->m_NumberOfComputer,Record->m_NumberOfSeat,Record->m_NumberOfWhitebash,Record->m_NumberOfProject);
 
 	*pResult = 0;
 	UpdateData(false);																//更新
@@ -215,6 +206,8 @@ void Room::OnBnClickedCancel()
 	CDialogEx::OnCancel();															//离开窗口
 	DestroyWindow();																//销毁窗口
 }
+
+
 
 
 
