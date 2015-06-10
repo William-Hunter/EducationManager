@@ -7,9 +7,6 @@
 #include "afxdialogex.h"
 #include "Input.h"
 
-
-
-
 // Room 对话框
 
 IMPLEMENT_DYNAMIC(Room, CDialogEx)
@@ -17,7 +14,6 @@ IMPLEMENT_DYNAMIC(Room, CDialogEx)
 Room::Room(CWnd* pParent /*=NULL*/)
 	: CDialogEx(Room::IDD, pParent)
 {
-
 }
 
 Room::~Room()
@@ -76,28 +72,28 @@ BOOL Room::OnInitDialog()
 
 void Room::OnBnClickedButtondisplay()
 {
-	UpdateData();			//从控件更新数据到变量
+	UpdateData();																		//从控件更新数据到变量
 
-	int index = 0;			//创建一个列表控件的行数标记变量
+	int index = 0;																		//创建一个列表控件的行数标记变量
 	//从记录集复制数据到本地变量
-	Record->MoveFirst();				//确保记录集指向第一个记录
-	for (index = 0; !(Record->IsEOF()); index++){			//不断循环，  当记录集有数据的时候，isEOF方法为0，所以在前面加上！，以保证循环
-		Record->GetFieldValue((short)0, RoomID);			//从记录集读取数据到变量
+	Record->MoveFirst();															//确保记录集指向第一个记录
+	for (index = 0; !(Record->IsEOF()); index++){							//不断循环，  当记录集有数据的时候，isEOF方法为0，所以在前面加上！，以保证循环
+		Record->GetFieldValue((short)0, RoomID);							//从记录集读取数据到变量
 		Record->GetFieldValue((short)1, NumberOfSeat);
 		Record->GetFieldValue((short)2, NumberOfComputer);
 		Record->GetFieldValue((short)3, NumberOfWhitebash);
 		Record->GetFieldValue((short)4, NumberOfProject);
-		Record->MoveNext();							//记录集移动到下一条
+		Record->MoveNext();														//记录集移动到下一条
 		//定义行
-		LV_ITEM lvitem;		// 设置行的变量
-		index = List.GetItemCount();//获取当前行数
+		LV_ITEM lvitem;																// 设置行的变量
+		index = List.GetItemCount();												//获取当前行数
 		lvitem.iItem = index;
 		lvitem.mask = LVFIF_TEXT;
 		lvitem.iSubItem = 0;
 		lvitem.pszText = (char *)(LPCTSTR)RoomID;
 		//插入一行
-		List.InsertItem(&lvitem);				//插入一行，
-		List.SetItemText(index, 0, RoomID);				//在这个坐标的格子上，插入变量
+		List.InsertItem(&lvitem);													//插入一行，
+		List.SetItemText(index, 0, RoomID);									//在这个坐标的格子上，插入变量
 		List.SetItemText(index, 1, NumberOfSeat);
 		List.SetItemText(index, 2, NumberOfComputer);
 		List.SetItemText(index, 3, NumberOfWhitebash);
@@ -110,7 +106,7 @@ void Room::OnBnClickedButtondisplay()
 		NumberOfProject = "";
 	}
 
-	UpdateData(false);				//更新数据到控件
+	UpdateData(false);																//更新数据到控件
 }
 
 
@@ -121,19 +117,19 @@ void Room::OnBnClickedButtoninsert()
 	ExChange::Clean();
 	Input dialog;
 	dialog.DoModal();
-	if(ExChange::FLAG==TRUE){
-		Record->MoveLast();	            	//让动态记录集指向第一个记录
-		Record->AddNew();	                	//添加一条新的记录
-		Record->m_RoomID = ExChange::ID;		    	//为新记录的变量赋值
+	if(ExChange::FLAG==TRUE){													//如果用户完成输入
+		Record->MoveLast();													   	//让动态记录集指向第最后一个记录
+		Record->AddNew();															//添加一条新的记录
+		Record->m_RoomID = ExChange::ID;									//为新记录的变量赋值
 		Record->m_NumberOfComputer = ExChange::computer;		
 		Record->m_NumberOfSeat = ExChange::seat;
 		Record->m_NumberOfWhitebash = ExChange::borad;
 		Record->m_NumberOfProject = ExChange::project;
-		Record->Update();		          //刷新纪录
+		Record->Update();														   //刷新纪录
 		Record->Requery();		
-		List.DeleteAllItems();		      	//删除列表控件内的所有项
-		OnBnClickedButtondisplay();	     	//重新把数据从表拿到列表
-		ExChange::Clean();
+		List.DeleteAllItems();		      											//删除列表控件内的所有项
+		OnBnClickedButtondisplay();	     										//重新把数据从表拿到列表
+		ExChange::Clean();															//清理数据交换变量
 	}else{
 		MessageBox("未能完成插入");
 		return ;
@@ -142,32 +138,37 @@ void Room::OnBnClickedButtoninsert()
 	UpdateData(false);
 }
 
+long Room::TakeLine()
+{
+	long Row=-1;																		//设置Row为-1，这样当用户未选中任何行时不会误操作
+	POSITION pos = List.GetFirstSelectedItemPosition();					
+	while (pos){
+		Row = List.GetNextSelectedItem(pos);								//获取当前鼠标点击的行的上一个
+	}
+	Row++;
+	return Row;
+}
 
 void Room::OnBnClickedButtonchange()
 {
 	UpdateData();
 
 	Input dialog;
-	dialog.DoModal();
-	if(ExChange::FLAG==TRUE){
-		long Row=0;
-		POSITION pos = List.GetFirstSelectedItemPosition();
-		while (pos){
-			Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
-		}
-		Record->SetAbsolutePosition(Row + 1);
-		Record->Edit();
-		Record->m_RoomID = ExChange::ID;		    	//为新记录的变量赋值
+	dialog.DoModal();																//创建输入窗口
+	if(ExChange::FLAG==TRUE){													//如果用户完成无误输入
+		Record->SetAbsolutePosition(TakeLine());							//获取用户点击的那一行对应的记录集行
+		Record->Edit();																//对此行进行编辑
+		Record->m_RoomID = ExChange::ID;		    						//为此记录的变量赋值
 		Record->m_NumberOfComputer = ExChange::computer;		
 		Record->m_NumberOfSeat = ExChange::seat;
 		Record->m_NumberOfWhitebash = ExChange::borad;
 		Record->m_NumberOfProject = ExChange::project;
-		Record->Update();
+		Record->Update();															//更新数据
 		Record->Requery();
-		List.DeleteAllItems();		//删除所有项
-		OnBnClickedButtondisplay();	     	//重新把数据从表拿到列表
+		List.DeleteAllItems();														//删除所有项
+		OnBnClickedButtondisplay();	     										//重新把数据从表拿到列表
 		ExChange::Clean();
-	}else{
+	}else{																					//如果用户未能完成输入
 		MessageBox("未能完成编辑");
 		return ;
 	}
@@ -180,27 +181,14 @@ void Room::OnBnClickedButtondelete()
 {
 	UpdateData();
 
-	long Row=0;
-	POSITION pos = List.GetFirstSelectedItemPosition();
-	while (pos){
-		Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
-	}
-	Record->SetAbsolutePosition(Row + 1);
-	Record->Delete();			//删除记录  
+	Record->SetAbsolutePosition(TakeLine());								//获取用户点击的行号
+	Record->Delete();																//删除记录  
 	Record->Requery();			
-	List.DeleteAllItems();		//删除所有项
-	OnBnClickedButtondisplay();	     		//重新拿取数据
+	List.DeleteAllItems();															//删除所有项
+	OnBnClickedButtondisplay();	     											//重新拿取数据
 
 	UpdateData(false);
 }
-
-
-void Room::OnBnClickedCancel()
-{
-	CDialogEx::OnCancel();
-}
-
-
 
 
 void Room::OnClickList1(NMHDR *pNMHDR, LRESULT *pResult)
@@ -208,22 +196,25 @@ void Room::OnClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
 	UpdateData();
 
-	long Row = 0;
-	POSITION pos = List.GetFirstSelectedItemPosition();
-	while (pos){
-		Row = List.GetNextSelectedItem(pos);			//获取当前鼠标点击的行数
-	}
-	Record->SetAbsolutePosition(Row+1);
-	ExChange::ID = Record->m_RoomID;
+	Record->SetAbsolutePosition(TakeLine());								//获取用户点击的行号
+	ExChange::ID = Record->m_RoomID;										//将这行的数据复制到静态变量
 	ExChange::computer = Record->m_NumberOfComputer;
 	ExChange::seat = Record->m_NumberOfSeat;
 	ExChange::borad = Record->m_NumberOfWhitebash;
 	ExChange::project = Record->m_NumberOfProject;
 
 	*pResult = 0;
-	UpdateData(false);
+	UpdateData(false);																//更新
 }
 
+
+void Room::OnBnClickedCancel()
+{
+	Record->Close();																	//关闭记录集
+	DB.Close();																			//关闭数据库连接
+	CDialogEx::OnCancel();															//离开窗口
+	DestroyWindow();																//销毁窗口
+}
 
 
 

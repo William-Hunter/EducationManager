@@ -141,7 +141,8 @@ BEGIN
     BEGIN
         MENUITEM "关于 ClassRoomManager(&A)...",  ID_APP_ABOUT
     END
-    MENUITEM "教室信息表",                       ID_32771
+    MENUITEM "查看教室信息表",                     ID_32771
+    MENUITEM "寻找你需要的教室",                    ID_32772
 END
 
 

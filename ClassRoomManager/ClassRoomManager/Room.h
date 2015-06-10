@@ -37,4 +37,5 @@ public:
 	CString NumberOfWhitebash;
 	CString NumberOfProject;
 	afx_msg void OnClickList1(NMHDR *pNMHDR, LRESULT *pResult);
+	long TakeLine();
 };

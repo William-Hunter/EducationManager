@@ -1,4 +1,4 @@
-﻿生成启动时间为 2015/6/9 星期二 20:28:48。
+﻿生成启动时间为 2015/6/10 星期三 9:16:30。
      1>项目“E:\VisualStudioProject\ClassRoomManager\ClassRoomManager\ClassRoomManager.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
          D:\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _MBCS /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\ClassRoomManager.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Room.cpp
@@ -19,4 +19,4 @@
 
 生成成功。
 
-已用时间 00:00:01.37
+已用时间 00:00:00.71

@@ -42,7 +42,6 @@ static UINT indicators[] =
 
 CMainFrame::CMainFrame()
 {
-	// TODO: 在此添加成员初始化代码
 }
 
 CMainFrame::~CMainFrame()
@@ -108,6 +107,8 @@ void CMainFrame::Dump(CDumpContext& dc) const
 
 void CMainFrame::On32771()
 {
-	dialog.Create(IDD_DIALOG1);
+	dialog.Create(IDD_DIALOG1);	
 	dialog.ShowWindow(SW_SHOW);
+	
+	
 }
