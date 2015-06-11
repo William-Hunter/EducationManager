@@ -22,8 +22,8 @@
 <b>编辑：</b>首先选中你想编辑的行，然后修改数据，然后点击保存修改，
 </p>
 
-<h4><em>类介绍</em></h4>
 <p>
+<h4><em>类介绍</em></h4>
 <ul>
   <li>CClassRoomManagerApp类：控制整个软件的属性</li>
   <li>CClassRoomManagerSet类：控制对数据库的访问    由CRecordSet派生而来</li>
