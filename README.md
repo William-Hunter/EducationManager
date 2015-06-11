@@ -22,7 +22,8 @@
 <b>编辑：</b>首先选中你想编辑的行，然后修改数据，然后点击保存修改，
 </p>
 
-<h4>类介绍</h4>
+<h4><em>类介绍</em></h4>
+<p>
 <ul>
   <li>CClassRoomManagerApp类：控制整个软件的属性</li>
   <li>CClassRoomManagerSet类：控制对数据库的访问    由CRecordSet派生而来</li>
@@ -33,4 +34,4 @@
   <li>Input类：控制输入对话框</li>
   <li>ExChange类：用以数据交换的类，里面是5个静态变量</li>
 </ul>
-
+</p>
