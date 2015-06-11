@@ -37,13 +37,6 @@ END_MESSAGE_MAP()
 // Display 消息处理程序
 
 
-void Display::OnBnClickedCancel()
-{
-	// TODO: 在此添加控件通知处理程序代码
-	CDialogEx::OnCancel();
-}
-
-
 BOOL Display::OnInitDialog()
 {
 	CDialogEx::OnInitDialog();
@@ -108,4 +101,12 @@ BOOL Display::OnInitDialog()
 		
 	UpdateData(false);		
 	return TRUE;  // return TRUE unless you set the focus to a control
+}
+
+void Display::OnBnClickedCancel()
+{
+	Record->Close();
+	DB.Close();
+	CDialogEx::OnCancel();
+	DestroyWindow();
 }

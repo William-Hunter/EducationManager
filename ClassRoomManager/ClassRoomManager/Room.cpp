@@ -6,6 +6,7 @@
 #include "Room.h"
 #include "afxdialogex.h"
 #include "Input.h"
+#include "Finder.h"
 
 // Room 对话框
 
@@ -33,6 +34,7 @@ BEGIN_MESSAGE_MAP(Room, CDialogEx)
 	ON_BN_CLICKED(IDC_BUTTON_delete, &Room::OnBnClickedButtondelete)
 	ON_BN_CLICKED(IDCANCEL, &Room::OnBnClickedCancel)
 ON_NOTIFY(NM_CLICK, IDC_LIST1, &Room::OnClickList1)
+ON_BN_CLICKED(IDC_BUTTON_search, &Room::OnBnClickedButtonsearch)
 END_MESSAGE_MAP()
 
 
@@ -199,6 +201,13 @@ void Room::OnClickList1(NMHDR *pNMHDR, LRESULT *pResult)
 }
 
 
+void Room::OnBnClickedButtonsearch()
+{
+	Finder dialogFinder;
+	dialogFinder.DoModal();
+}
+
+
 void Room::OnBnClickedCancel()
 {
 	Record->Close();																	//关闭记录集
@@ -206,9 +215,5 @@ void Room::OnBnClickedCancel()
 	CDialogEx::OnCancel();															//离开窗口
 	DestroyWindow();																//销毁窗口
 }
-
-
-
-
 
 

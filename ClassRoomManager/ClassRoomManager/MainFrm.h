@@ -43,8 +43,7 @@ protected:
 public:
 	afx_msg void On32771();
 	Room dialogRoom;
-	afx_msg void On32772();
-	Finder dialogFind;
+
 };
 
 

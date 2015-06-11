@@ -48,6 +48,7 @@ END_MESSAGE_MAP()
 void Finder::OnBnClickedsearch()
 {
 	UpdateData();					//从控件拿到数据
+
 	if(NULL==FindComputer&&NULL==FindSeat&&NULL==FindBorad&&NULL==FindProject){        //判断用户输入是否正确
 		MessageBox("输入不完全");
 		return ;
@@ -56,10 +57,12 @@ void Finder::OnBnClickedsearch()
 		ExChange::FindSeat=FindSeat;
 		ExChange::FindProject=FindProject;
 		ExChange::FindBorad=FindBorad;
+
+		Display dialog;
+		dialog.DoModal();
 	}	
-	Display dialog;
-	dialog.DoModal();
-	OnBnClickedCancel();			//撤销窗口
+
+	UpdateData(false);					//更新数据到控件
 }
 
 

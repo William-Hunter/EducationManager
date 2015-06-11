@@ -35,7 +35,7 @@ IMPLEMENT_DYNCREATE(CMainFrame, CFrameWnd)
 BEGIN_MESSAGE_MAP(CMainFrame, CFrameWnd)
 	ON_WM_CREATE()
 	ON_COMMAND(ID_32771, &CMainFrame::On32771)
-	ON_COMMAND(ID_32772, &CMainFrame::On32772)
+//	ON_COMMAND(ID_32772, &CMainFrame::On32772)
 END_MESSAGE_MAP()
 
 static UINT indicators[] =
@@ -115,10 +115,4 @@ void CMainFrame::On32771()
 {
 	dialogRoom.Create(IDD_DIALOG1);	
 	dialogRoom.ShowWindow(SW_SHOW);
-}
-
-void CMainFrame::On32772()
-{
-	dialogFind.Create(IDD_DIALOG_Found);
-	dialogFind.ShowWindow(SW_SHOW);
 }

@@ -38,4 +38,5 @@ public:
 	afx_msg void OnClickList1(NMHDR *pNMHDR, LRESULT *pResult);
 	long TakeLine();
 	void Contect();
+	afx_msg void OnBnClickedButtonsearch();
 };
