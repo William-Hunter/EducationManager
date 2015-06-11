@@ -11,7 +11,7 @@
 </p>
 
 <p>
-使用说明：
+<em>使用说明：</em>
 添加：
 当你要添加一个新数据，首先清空数据，然后在输入框里输入新的信息，点击插入按钮，
 删除：
@@ -19,8 +19,9 @@
 编辑，首先选中你想编辑的行，然后修改数据，然后点击保存修改，
 </p>
 
+<h3>类介绍</h3>
 <ul>
-  <li>CClassRoomManagerApp类：控制整个软件</li>
+  <li>CClassRoomManagerApp类：控制整个软件的属性</li>
   <li>CClassRoomManagerSet类：控制对数据库的访问    由CRecordSet派生而来</li>
   <li>CClassRoomManagerDoc类：控制软件的文档</li>
   <li>CAboutDlg类：控制关于窗口</li>
@@ -29,6 +30,4 @@
   <li>Input类：控制输入对话框</li>
   <li>ExChange类：用以数据交换的类，里面是5个静态变量</li>
 </ul>
-
-
 
