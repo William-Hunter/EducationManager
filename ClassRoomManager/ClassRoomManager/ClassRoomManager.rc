@@ -141,7 +141,7 @@ BEGIN
     BEGIN
         MENUITEM "关于 ClassRoomManager(&A)...",  ID_APP_ABOUT
     END
-    MENUITEM "查看编辑教室信息表",                   ID_32771
+    MENUITEM "查看编辑多媒体教室信息表",                ID_32771
 END
 
 
@@ -245,7 +245,7 @@ END
 
 IDD_DIALOG_display DIALOGEX 0, 0, 312, 111
 STYLE DS_SETFONT | DS_MODALFRAME | DS_3DLOOK | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU
-CAPTION "查看结果"
+CAPTION "查看搜索结果"
 FONT 10, "微软雅黑", 400, 0, 0x86
 BEGIN
     PUSHBUTTON      "结束",IDCANCEL,255,90,50,14

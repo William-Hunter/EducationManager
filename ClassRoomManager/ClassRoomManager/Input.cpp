@@ -19,7 +19,6 @@ Input::Input(CWnd* pParent /*=NULL*/)
 	, project(0)
 	, seat(0)
 {
-
 }
 
 Input::~Input()
@@ -65,7 +64,7 @@ void Input::OnBnClickedOk()
 {
 	UpdateData();
 	if(ID==NULL){
-		MessageBox("你还没有完全输入");
+		MessageBox("输入不完整");
 		ExChange::FLAG=FALSE;
 		return ;
 	}else{
