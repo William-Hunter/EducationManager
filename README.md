@@ -24,14 +24,12 @@
 
 <em>类介绍</em>
 -----------------------------------------
-<ul>
-  <li>CClassRoomManagerApp类：控制整个软件的属性</li>
-  <li>CClassRoomManagerSet类：控制对数据库的访问    由CRecordSet派生而来</li>
-  <li>CClassRoomManagerDoc类：控制软件的文档</li>
-  <li>CAboutDlg类：控制关于窗口</li>
-  <li>MainFrm类：控制菜单区域</li>
-  <li>Room类：控制教室信息对话框</li>
-  <li>Input类：控制输入对话框</li>
-  <li>ExChange类：用以数据交换的类，里面是5个静态变量</li>
-</ul>
+  *CClassRoomManagerApp类：控制整个软件的属性  
+  *CClassRoomManagerSet类：控制对数据库的访问，由CRecordSet派生而来  
+  *CClassRoomManagerDoc类：控制软件的文档  
+  *CAboutDlg类：控制关于窗口  
+  *MainFrm类：控制菜单区域  
+  *Room类：控制教室信息对话框  
+  *Input类：控制输入对话框  
+  *ExChange类：用以数据交换的类，里面是5个静态变量  
 
